@@ -1,6 +1,6 @@
-// import { unstable_noStore as noStore } from 'next/cache';
+import { unstable_noStore as noStore } from 'next/cache';
 
 export default function getEnv(name: string) {
-  // noStore();
+  noStore();
   return process.env[name];
 }
