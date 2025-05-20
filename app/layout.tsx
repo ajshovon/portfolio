@@ -3,6 +3,9 @@ import Header from '@/components/ui/Header';
 import { SiteThemeProvider } from '@/providers/theme';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+
+import { GoogleAnalytics } from '@next/third-parties/google';
+import Script from 'next/script';
 import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
@@ -29,6 +32,15 @@ export default function RootLayout({
           <Footer />
         </SiteThemeProvider>
       </body>
+      <Script src={process.env.UMAMI_URL} data-website-id={process.env.UMAMI_SITE_ID} />
+      <Script id="ms_clarity" strategy="afterInteractive">
+        {`(function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "${process.env.CLARITY_PROJECT_ID}");`}
+      </Script>
+      <GoogleAnalytics gaId={process.env.GOOGLE_TAG_MANAGER_ID ?? ''} />
     </html>
   );
 }

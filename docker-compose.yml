@@ -4,4 +4,8 @@ services:
     image: portfolio:latest
     environment:
       PORT: 7000
+      GOOGLE_TAG_MANAGER_ID: "GTM-XXXXXX"
+      UMAMI_URL: "https://umami.example.com"
+      UMAMI_SITE_ID: "XXXXXXXX-XXXX
+      CLARITY_PROJECT_ID: "XXXXXXXX-XXXX"
     network_mode: host

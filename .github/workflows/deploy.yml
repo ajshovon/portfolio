@@ -20,25 +20,16 @@ jobs:
       - name: Save and compress Docker image
         run: docker save portfolio:latest | zstd -o portfolio.tar.zst
 
-      - name: Upload Docker Compose file to VPS
-        env:
-          VPS_USER: ${{ secrets.VPS_USER }}
-          VPS_HOST: ${{ secrets.VPS_HOST }}
-          VPS_SSH_PORT: ${{ secrets.VPS_SSH_PORT }}
-          VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
-        run: |
-          sudo apt-get update && sudo apt-get install -y apt-utils sshpass zstd
-          mkdir -p ~/.ssh
-          ssh-keyscan -p $VPS_SSH_PORT -T 240 -t rsa -4 $VPS_HOST >> ~/.ssh/known_hosts
-          sshpass -p "$VPS_PASSWORD" scp -P "$VPS_SSH_PORT" -o StrictHostKeyChecking=no docker-compose.yml $VPS_USER@$VPS_HOST:/home/$VPS_USER/portfolio/docker-compose.yml
       - name: Deploy Docker Image to VPS
         env:
           VPS_USER: ${{ secrets.VPS_USER }}
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_SSH_PORT: ${{ secrets.VPS_SSH_PORT }}
           VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
+          DOCKER_COMPOSE_URL: ${{ secrets.DOCKER_COMPOSE_URL }}
         run: |
+              wget $DOCKER_COMPOSE_URL -O /home/$VPS_USER/portfolio/portfolio-docker-compose.yml
               sshpass -p "$VPS_PASSWORD" scp -P "$VPS_SSH_PORT" -o StrictHostKeyChecking=no portfolio.tar.zst $VPS_USER@$VPS_HOST:/home/$VPS_USER/portfolio/portfolio.tar.zst
               sshpass -p "$VPS_PASSWORD" ssh -p "$VPS_SSH_PORT" -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "
               docker load -i /home/$VPS_USER/portfolio/portfolio.tar.zst &&
-              docker compose -f /home/$VPS_USER/portfolio/docker-compose.yml up -d"
+              docker compose -f /home/$VPS_USER/portfolio/portfolio-docker-compose.yml up -d"
