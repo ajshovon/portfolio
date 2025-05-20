@@ -28,8 +28,8 @@ jobs:
           VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
           DOCKER_COMPOSE_URL: ${{ secrets.DOCKER_COMPOSE_URL }}
         run: |
-              wget $DOCKER_COMPOSE_URL -O /home/$VPS_USER/portfolio/portfolio-docker-compose.yml
               sshpass -p "$VPS_PASSWORD" scp -P "$VPS_SSH_PORT" -o StrictHostKeyChecking=no portfolio.tar.zst $VPS_USER@$VPS_HOST:/home/$VPS_USER/portfolio/portfolio.tar.zst
               sshpass -p "$VPS_PASSWORD" ssh -p "$VPS_SSH_PORT" -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "
+              wget $DOCKER_COMPOSE_URL -O /home/$VPS_USER/portfolio/portfolio-docker-compose.yml &&
               docker load -i /home/$VPS_USER/portfolio/portfolio.tar.zst &&
               docker compose -f /home/$VPS_USER/portfolio/portfolio-docker-compose.yml up -d"
