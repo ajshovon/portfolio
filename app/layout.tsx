@@ -24,6 +24,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isUmamiEnabled = getEnv('UMAMI_ENABLED') === 'true';
+  const isClarityEnabled = getEnv('CLARITY_ENABLED') === 'true';
+  const isGoogleTagManagerEnabled = getEnv('GOOGLE_TAG_MANAGER_ENABLED') === 'true';
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} dark:bg-[#232425] bg-white flex min-h-svh flex-col`}>
@@ -33,15 +37,21 @@ export default function RootLayout({
           <Footer />
         </SiteThemeProvider>
       </body>
-      <Script src={getEnv("UMAMI_URL")} data-website-id={getEnv("UMAMI_SITE_ID")} />
-      <Script id="ms_clarity" strategy="afterInteractive">
-        {`(function(c,l,a,r,i,t,y){
+      {isUmamiEnabled && (
+        <Script src={getEnv('UMAMI_URL')} data-website-id={getEnv('UMAMI_SITE_ID')} />
+      )}
+      {isClarityEnabled && (
+        <Script id="ms_clarity" strategy="afterInteractive">
+          {`(function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "${getEnv("CLARITY_PROJECT_ID")}");`}
-      </Script>
-      <GoogleAnalytics gaId={getEnv("GOOGLE_TAG_MANAGER_ID") ?? ''} />
+    })(window, document, "clarity", "script", "${getEnv('CLARITY_PROJECT_ID')}");`}
+        </Script>
+      )}
+      {isGoogleTagManagerEnabled && (
+        <GoogleAnalytics gaId={getEnv('GOOGLE_TAG_MANAGER_ID') ?? ''} />
+      )}
     </html>
   );
 }
