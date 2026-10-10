@@ -1,17 +1,36 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
+
+const links = [
+  { href: '/about', label: 'about' },
+  { href: '/projects', label: 'projects' },
+];
+
+const pathname = Astro.url.pathname.replace(/(\/index)?(\.html)?\/?$/, '') || '/';
+const cwd = pathname === '/' ? '~' : `~${pathname}`;
 ---
 
-<div class="dark:bg-[#1b1c1d] bg-[#fafafa] sticky top-0">
-  <div class="h-[68px] max-w-3xl lg:mx-auto lg:px-6 mx-6 flex items-center justify-between">
-    <a href="/" class="font-mono dark:text-[#a9a9b3] text-[#222222] text-lg font-bold">
-      &gt; $<span class="relative w-[max-content] before:absolute before:inset-0 before:animate-typewriter before:dark:bg-[#1b1c1d] before:bg-[#fafafa] after:absolute after:inset-0 after:w-2 after:animate-caret after:bg-sky-500">cd /home/</span>
+<header class="sticky top-0 z-20 border-b border-line bg-bg/80 backdrop-blur-md">
+  <div class="mx-auto flex h-16 w-full max-w-5xl items-center justify-between px-5 sm:px-6">
+    <a href="/" class="flex items-center gap-2 font-mono text-sm" aria-label="[.shovon] home">
+      <span class="text-base font-bold tracking-tight"><span class="text-accent">[</span>.shovon<span class="text-accent">]</span></span>
+      <span class="hidden text-muted sm:inline">{cwd}</span>
+      <span class="caret" aria-hidden="true"></span>
     </a>
 
-    <div class="flex items-center gap-6">
-      <a href="/about" class="dark:text-[#a9a9b3] text-[#222222] hover:underline transition-all duration-300">About</a>
-      <a href="/projects" class="dark:text-[#a9a9b3] text-[#222222] hover:underline transition-all duration-300">Projects</a>
+    <nav class="flex items-center font-mono text-sm" aria-label="Main">
+      {
+        links.map(({ href, label }) => (
+          <a
+            href={href}
+            aria-current={pathname === href ? 'page' : undefined}
+            class="relative px-2 py-2 text-muted transition-colors duration-200 after:absolute after:inset-x-2 after:-bottom-[15px] sm:px-3 sm:after:inset-x-3 after:h-0.5 after:bg-accent after:opacity-0 hover:text-fg aria-[current=page]:text-fg aria-[current=page]:after:opacity-100"
+          >
+            {label}
+          </a>
+        ))
+      }
       <ThemeToggle />
-    </div>
+    </nav>
   </div>
-</div>
+</header>

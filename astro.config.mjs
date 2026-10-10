@@ -11,11 +11,28 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.google(),
-      name: 'Inter',
-      cssVariable: '--font-inter',
-      weights: ['100 900'],
+      name: 'Red Hat Display',
+      cssVariable: '--font-display',
+      weights: ['300 900'],
       styles: ['normal'],
       subsets: ['latin'],
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Red Hat Text',
+      cssVariable: '--font-text',
+      weights: ['300 700'],
+      styles: ['normal'],
+      subsets: ['latin'],
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Red Hat Mono',
+      cssVariable: '--font-mono',
+      weights: ['300 700'],
+      styles: ['normal'],
+      subsets: ['latin'],
+      fallbacks: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
     },
   ],
   env: {

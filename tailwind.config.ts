@@ -1,40 +1,46 @@
 import type { Config } from "tailwindcss";
 
+// Colors are CSS variables (see src/styles/global.css) so both themes share one set of classes.
+const token = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
+
 const config: Config = {
   darkMode: "class",
   content: ["./src/**/*.{astro,html,js,ts,md,mdx}"],
   theme: {
     extend: {
-      fontFamily: {
-        inter: ["var(--font-inter)"],
+      colors: {
+        bg: token("bg"),
+        surface: token("surface"),
+        raised: token("raised"),
+        line: token("line"),
+        fg: token("fg"),
+        muted: token("muted"),
+        faint: token("faint"),
+        accent: token("accent"),
+        "accent-fg": token("accent-fg"),
+        ok: token("ok"),
+        danger: token("danger"),
+        info: token("info"),
       },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      fontFamily: {
+        sans: ["var(--font-text)"],
+        display: ["var(--font-display)"],
+        mono: ["var(--font-mono)"],
       },
       animation: {
-        typewriter: "typewriter 1s steps(11) forwards",
-        caret:
-          "typewriter 1s steps(11) forwards, blink 1s steps(11) infinite 2s",
+        blink: "blink 1.1s steps(1) infinite",
+        rise: "rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both",
       },
       keyframes: {
-        typewriter: {
-          to: {
-            left: "100%",
+        blink: {
+          "50%": {
+            opacity: "0",
           },
         },
-        blink: {
-          "0%": {
+        rise: {
+          from: {
             opacity: "0",
-          },
-
-          "50%": {
-            opacity: "1",
-          },
-
-          "100%": {
-            opacity: "0",
+            transform: "translateY(12px)",
           },
         },
       },

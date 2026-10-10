@@ -1,0 +1,47 @@
+---
+import type { Project } from '@/data/projects';
+import ArrowUpRight from '@/icons/arrow-up-right.svg';
+import GitBranch from '@/icons/git-branch.svg';
+import { Image } from 'astro:assets';
+
+interface Props {
+  project: Project;
+  index: number;
+  heading?: 'h2' | 'h3';
+  /** Spans the grid with the preview beside the text instead of above it. */
+  wide?: boolean;
+}
+
+const { project, index, heading: Heading = 'h2', wide = false } = Astro.props;
+const { slug, name, description, image, cover, live, source } = project;
+---
+
+<article id={slug} class:list={['group flex flex-col overflow-hidden rounded-xl border border-line bg-surface transition-colors duration-300 hover:border-accent/70', wide && 'md:col-span-2 md:flex-row']}>
+  <div class:list={['relative aspect-[2/1] shrink-0 overflow-hidden border-b border-line bg-raised', wide && 'md:aspect-auto md:min-h-64 md:w-[44%] md:border-b-0 md:border-r']}>
+    {
+      cover ? (
+        <Image src={image} widths={[480, 720, 960]} sizes="(min-width: 768px) 30rem, 100vw" alt={`${name} preview`} class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+      ) : (
+        <Image src={image} height={144} densities={[1, 2]} alt={`${name} preview`} class="absolute inset-0 m-auto h-auto max-h-[62%] w-auto max-w-[70%] rounded-lg transition-transform duration-500 group-hover:scale-105" />
+      )
+    }
+    <span class="absolute left-3 top-3 rounded-md border border-line bg-bg/80 px-2 py-0.5 font-mono text-[11px] text-muted backdrop-blur">{String(index).padStart(2, '0')}</span>
+  </div>
+
+  <div class:list={['flex flex-1 flex-col gap-3 p-5', wide && 'md:justify-center md:p-8']}>
+    <Heading class:list={['font-display text-xl font-bold tracking-tight', wide && 'md:text-3xl md:font-extrabold']}>{name}</Heading>
+    <p class="text-sm leading-relaxed text-muted">{description}</p>
+    <div class:list={['flex flex-wrap gap-2 pt-2 font-mono text-xs', !wide && 'mt-auto']}>
+      {
+        live && (
+          <a href={live} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 rounded-md border border-accent bg-accent px-2.5 py-1.5 text-accent-fg transition-colors duration-200 hover:bg-transparent hover:text-accent">
+            live <ArrowUpRight />
+          </a>
+        )
+      }
+      <a href={source} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 rounded-md border border-line px-2.5 py-1.5 text-muted transition-colors duration-200 hover:border-accent hover:text-accent">
+        <GitBranch /> source
+      </a>
+    </div>
+  </div>
+</article>

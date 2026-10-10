@@ -1,35 +1,82 @@
 ---
 import avatar from '@/assets/images/61104583.jpg';
-import Envelope from '@/icons/envelope.svg';
-import Github from '@/icons/github.svg';
-import Linkedin from '@/icons/linkedin.svg';
-import Telegram from '@/icons/telegram.svg';
+import ProjectCard from '@/components/ui/ProjectCard.astro';
+import Window from '@/components/ui/Window.astro';
+import { socials } from '@/data/links';
+import { projects } from '@/data/projects';
+import ArrowRight from '@/icons/arrow-right.svg';
+import MapPin from '@/icons/map-pin.svg';
 import Layout from '@/layouts/Layout.astro';
 import { Image } from 'astro:assets';
+
+const featured = projects.slice(0, 3);
 ---
 
 <Layout>
-  <div class="h-full w-full flex flex-col gap-8 justify-center items-center dark:text-[#a9a9b3] text-[#222222]">
-    <Image src={avatar} alt="avatar" width={160} height={160} densities={[1, 2]} priority class="rounded-full ring-8 ring-opacity-30 ring-gray-400" />
-
-    <h1 class="font-bold md:text-[42px] text-[32px] text-center">Jubayer Ahmad Shovon</h1>
-    <div class="text-center">
-      <p>Tech lover, otaku, geeky!</p>
-      <p>Dhaka, Bangladesh</p>
-      <div class="flex items-center justify-center gap-4 text-2xl mt-4">
-        <a href="https://redirect.shovon.me/github" target="_blank" title="GitHub" rel="noopener">
-          <Github />
-        </a>
-        <a href="https://redirect.shovon.me/linkedin" target="_blank" title="LinkedIn" rel="noopener">
-          <Linkedin />
-        </a>
-        <a href="https://redirect.shovon.me/telegram" target="_blank" title="Telegram" rel="noopener">
-          <Telegram />
-        </a>
-        <a href="mailto:mail@shovon.me" target="_blank" title="Email" rel="noopener">
-          <Envelope />
-        </a>
+  <section class="grid items-center gap-12 py-14 md:py-24 lg:grid-cols-[minmax(0,1fr)_25rem]">
+    <div>
+      <div class="flex items-center gap-4 motion-safe:animate-rise">
+        <Image src={avatar} alt="avatar" width={64} height={64} densities={[1, 2]} priority class="size-16 rounded-2xl border border-line" />
+        <div class="font-mono text-sm">
+          <p class="flex items-center gap-2"><span class="size-2 rounded-full bg-ok" aria-hidden="true"></span> DevOps Engineer</p>
+          <p class="mt-1 flex items-center gap-1.5 text-muted"><MapPin /> Dhaka, Bangladesh</p>
+        </div>
       </div>
+
+      <h1 class="mt-8 font-display text-[clamp(2.75rem,8vw,5rem)] font-black leading-[0.95] tracking-tight motion-safe:animate-rise" style="animation-delay: 80ms">
+        Jubayer Ahmad <span class="text-accent">Shovon</span>
+      </h1>
+
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-muted motion-safe:animate-rise" style="animation-delay: 160ms">Tech lover, otaku, geeky! I work with web technologies and love to build things that make a difference.</p>
+
+      <ul class="mt-8 flex flex-wrap gap-3 motion-safe:animate-rise" style="animation-delay: 240ms">
+        {
+          socials.map(({ label, href, icon: Icon }) => (
+            <li>
+              <a href={href} target="_blank" rel="noopener" title={label} class="btn">
+                <Icon class="text-base" /> {label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </div>
-  </div>
+
+    <div class="motion-safe:animate-rise" style="animation-delay: 320ms">
+      <Window title="shovon@web: ~">
+        <p><span class="text-accent">$</span> whoami</p>
+        <p class="text-muted">jubayer ahmad shovon</p>
+        <p class="mt-3"><span class="text-accent">$</span> cat role.txt</p>
+        <p class="text-muted">devops engineer, dhaka (bd)</p>
+        <p class="mt-3"><span class="text-accent">$</span> cat interests.txt</p>
+        <p class="text-muted">tech, anime, all things geeky</p>
+        <p class="mt-3"><span class="text-accent">$</span> ls ~/projects</p>
+        <p class="flex flex-wrap gap-x-4">
+          {
+            projects.map(({ slug }) => (
+              <a href={`/projects#${slug}`} class="text-info hover:underline">
+                {slug}/
+              </a>
+            ))
+          }
+        </p>
+        <p class="mt-3"><span class="text-accent">$</span> <span class="caret" aria-hidden="true"></span></p>
+      </Window>
+    </div>
+  </section>
+
+  <section class="pb-20">
+    <div class="flex items-end justify-between gap-4 border-b border-line pb-4">
+      <div>
+        <p class="eyebrow">// selected work</p>
+        <h2 class="mt-2 font-display text-3xl font-extrabold tracking-tight">Projects</h2>
+      </div>
+      <a href="/projects" class="group inline-flex items-center gap-2 font-mono text-sm text-muted transition-colors duration-200 hover:text-accent">
+        all {projects.length} projects <ArrowRight class="transition-transform duration-200 group-hover:translate-x-1" />
+      </a>
+    </div>
+    <div class="mt-8 grid gap-6 md:grid-cols-3">
+      {featured.map((project, i) => <ProjectCard project={project} index={i + 1} heading="h3" />)}
+    </div>
+  </section>
 </Layout>

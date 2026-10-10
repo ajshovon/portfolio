@@ -2,68 +2,98 @@
 @tailwind components;
 @tailwind utilities;
 
-.header-text {
-  color: rgb(169, 169, 179);
-}
-
-.logo__cursor {
-  /* display: inline-block;
-  width: 10px;
-  height: 1rem;
-  background: #00bdef;
-  margin-left: 5px;
-  border-radius: 1px; */
-  animation: cursor 1s infinite;
-}
-
-/* @keyframes cursor {
-  0% {
-      opacity: 0
+@layer base {
+  /* Light theme: warm paper, burnt orange */
+  :root {
+    --bg: 247 245 240;
+    --surface: 255 255 255;
+    --raised: 239 236 229;
+    --line: 221 216 205;
+    --fg: 20 22 26;
+    --muted: 88 94 105;
+    --faint: 138 142 150;
+    --accent: 184 74 0;
+    --accent-fg: 255 255 255;
+    --ok: 21 128 76;
+    --danger: 190 40 40;
+    --info: 20 100 170;
   }
 
-  50% {
-      opacity: 1
+  /* Dark theme: ink, amber phosphor. `.theme-dark` pins a block to it, used for terminal windows. */
+  .dark,
+  .theme-dark {
+    --bg: 11 13 16;
+    --surface: 17 20 25;
+    --raised: 24 28 34;
+    --line: 38 43 52;
+    --fg: 230 232 235;
+    --muted: 142 150 163;
+    --faint: 96 103 116;
+    --accent: 255 170 64;
+    --accent-fg: 24 16 4;
+    --ok: 74 222 158;
+    --danger: 255 123 114;
+    --info: 125 196 255;
   }
 
-  100% {
-      opacity: 0
+  /* Without JavaScript no theme class is set, so follow the system preference */
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) {
+      --bg: 11 13 16;
+      --surface: 17 20 25;
+      --raised: 24 28 34;
+      --line: 38 43 52;
+      --fg: 230 232 235;
+      --muted: 142 150 163;
+      --faint: 96 103 116;
+      --accent: 255 170 64;
+      --accent-fg: 24 16 4;
+      --ok: 74 222 158;
+      --danger: 255 123 114;
+      --info: 125 196 255;
+    }
   }
-} */
 
-/* Light mode Scrollbar */
-::-webkit-scrollbar {
-  width: 4px !important;
-  height: 4px !important;
+  html {
+    scrollbar-color: rgb(var(--line)) transparent;
+    scrollbar-width: thin;
+    scroll-padding-top: 5rem;
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.3);
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
 }
-::-webkit-scrollbar-track {
-  /* background: rgb(197, 224, 255) !important; */
-  background: #FFFFFF !important;
-  border-radius: 10px !important;
-}
-::-webkit-scrollbar-thumb {
-  /* background: gray !important; */
-  background: #D8DCFF !important;
-  border-radius: 10px !important;
-  transition: all !important;
-}
-::-webkit-scrollbar-thumb:hover {
-  /* background: rgba(128, 128, 128, 0.646) !important; */
-  background: #b6bada !important;
-}
-/* Dark mode Scrollbar */
-.dark ::-webkit-scrollbar {
-  width: 4px !important;
-  height: 4px !important;
-}
-.dark ::-webkit-scrollbar-track {
-  background: #16192E !important;
-  border-radius: 10px !important;
-}
-.dark ::-webkit-scrollbar-thumb {
-  background: #363E61 !important;
-  border-radius: 10px !important;
-  transition: all !important;
-}
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #363e61b4 !important;
+
+@layer components {
+  /* Graph-paper backdrop that fades out below the fold */
+  .backdrop-grid {
+    background-image:
+      linear-gradient(rgb(var(--line) / 0.55) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--line) / 0.55) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 20%, transparent 75%);
+  }
+
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.2em] text-muted;
+  }
+
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-lg border border-line bg-surface px-4 py-2.5 font-mono text-sm text-fg transition-colors duration-200 hover:border-accent hover:text-accent;
+  }
+
+  .btn-primary {
+    @apply border-accent bg-accent text-accent-fg hover:bg-transparent;
+  }
+
+  .caret {
+    @apply inline-block h-[1.1em] w-[0.55em] translate-y-[0.18em] bg-accent motion-safe:animate-blink;
+  }
 }

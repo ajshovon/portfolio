@@ -11,7 +11,7 @@ interface Props {
   description?: string;
 }
 
-const { title = '[.shovon]', description = 'Personal Portfolio || [.shovon]' } = Astro.props;
+const { title = '[.shovon]', description = 'Jubayer Ahmad Shovon, DevOps Engineer from Dhaka, Bangladesh || [.shovon]' } = Astro.props;
 const ogImage = new URL('/assets/images/og-image.png', Astro.site);
 ---
 
@@ -26,7 +26,9 @@ const ogImage = new URL('/assets/images/og-image.png', Astro.site);
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage} />
     <link rel="icon" href="/favicon.ico" />
-    <Font cssVariable="--font-inter" preload />
+    <Font cssVariable="--font-display" preload />
+    <Font cssVariable="--font-text" preload />
+    <Font cssVariable="--font-mono" preload />
     <ClientRouter />
     <script is:inline>
       (() => {
@@ -64,27 +66,13 @@ const ogImage = new URL('/assets/images/og-image.png', Astro.site);
     </script>
     <Analytics />
   </head>
-  <body class="font-inter dark:bg-[#232425] bg-white flex min-h-svh flex-col">
+  <body class="flex min-h-svh flex-col bg-bg font-sans text-fg antialiased">
+    <a href="#main" class="sr-only z-30 rounded-lg bg-accent px-4 py-2 font-mono text-sm text-accent-fg focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
+    <div class="backdrop-grid pointer-events-none fixed inset-0 -z-10" aria-hidden="true"></div>
     <Header />
-    <main class="flex flex-col flex-auto items-center justify-center m-0">
+    <main id="main" class="mx-auto w-full max-w-5xl flex-1 px-5 sm:px-6">
       <slot />
     </main>
     <Footer />
-    <script>
-      import { swapFunctions } from 'astro:transitions/client';
-
-      // Swap only <main> between pages so the header's typewriter animation doesn't replay on every navigation.
-      document.addEventListener('astro:before-swap', (event) => {
-        const main = document.querySelector('main');
-        const newMain = event.newDocument.querySelector('main');
-        if (!main || !newMain) return;
-
-        event.swap = () => {
-          swapFunctions.deselectScripts(event.newDocument);
-          swapFunctions.swapHeadElements(event.newDocument);
-          main.replaceWith(newMain);
-        };
-      });
-    </script>
   </body>
 </html>

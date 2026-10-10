@@ -9,7 +9,7 @@ npm run dev
 
 Open [http://localhost:7000](http://localhost:7000) with your browser to see the result. If the port is taken, Astro picks the next free one and prints it.
 
-Pages live in `src/pages`, shared markup in `src/layouts` and `src/components`, and icons in `src/icons` as plain SVG files that are imported as components.
+Pages live in `src/pages`, shared markup in `src/layouts` and `src/components`, and icons in `src/icons` as plain SVG files that are imported as components. Projects and social links are listed in `src/data`. Colors for both themes are CSS variables in `src/styles/global.css`.
 
 ## Scripts
 
