@@ -57,7 +57,6 @@ export const projects: Project[] = [
     name: 'Typenspeed',
     description: 'A Django based web app to test your typing speed!',
     image: tns,
-    live: 'https://typenspeed.ml/',
     source: 'https://github.com/enigma71/type-n-speed',
   },
   {
@@ -65,13 +64,13 @@ export const projects: Project[] = [
     name: 'Registro',
     description: "A simple web app made with flask for managing student's registration & courses information.",
     image: pyrunner,
-    source: 'https://github.com/shovon382/registro',
+    source: 'https://github.com/ajshovon/registro',
   },
   {
     slug: 'pyrunner',
     name: 'pyRunner',
     description: 'A telegram bot to run python codes. By providing a platform for running Python code within Telegram, this bot facilitates quick testing, learning, and experimenting with Python without the need for a separate development environment.',
     image: pyrunner,
-    source: 'https://github.com/shovon382/pyrunner',
+    source: 'https://github.com/ajshovon/pyrunner',
   },
 ];
