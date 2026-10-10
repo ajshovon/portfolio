@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  /* Light theme: warm paper, burnt orange */
+  /* Light theme: warm paper, forest green */
   :root {
     --bg: 247 245 240;
     --surface: 255 255 255;
@@ -12,14 +12,14 @@
     --fg: 20 22 26;
     --muted: 88 94 105;
     --faint: 138 142 150;
-    --accent: 184 74 0;
+    --accent: 20 120 58;
     --accent-fg: 255 255 255;
     --ok: 21 128 76;
     --danger: 190 40 40;
     --info: 20 100 170;
   }
 
-  /* Dark theme: ink, amber phosphor. `.theme-dark` pins a block to it, used for terminal windows. */
+  /* Dark theme: ink, green phosphor. `.theme-dark` pins a block to it, used for terminal windows. */
   .dark,
   .theme-dark {
     --bg: 11 13 16;
@@ -29,8 +29,8 @@
     --fg: 230 232 235;
     --muted: 142 150 163;
     --faint: 96 103 116;
-    --accent: 255 170 64;
-    --accent-fg: 24 16 4;
+    --accent: 74 222 128;
+    --accent-fg: 5 28 14;
     --ok: 74 222 158;
     --danger: 255 123 114;
     --info: 125 196 255;
@@ -46,8 +46,8 @@
       --fg: 230 232 235;
       --muted: 142 150 163;
       --faint: 96 103 116;
-      --accent: 255 170 64;
-      --accent-fg: 24 16 4;
+      --accent: 74 222 128;
+      --accent-fg: 5 28 14;
       --ok: 74 222 158;
       --danger: 255 123 114;
       --info: 125 196 255;
