@@ -13,18 +13,16 @@ interface Props {
 }
 
 const { project, index, heading: Heading = 'h2', wide = false } = Astro.props;
-const { slug, name, description, image, cover, live, source } = project;
+const { slug, name, description, image, fit, live, source } = project;
+const alt = `${name} preview`;
+const zoom = 'transition-transform duration-500 group-hover:scale-[1.03]';
 ---
 
 <article id={slug} class:list={['group flex flex-col overflow-hidden rounded-xl border border-line bg-surface transition-colors duration-300 hover:border-accent/70', wide && 'md:col-span-2 md:flex-row']}>
   <div class:list={['relative aspect-[2/1] shrink-0 overflow-hidden border-b border-line bg-raised', wide && 'md:aspect-auto md:min-h-64 md:w-[44%] md:border-b-0 md:border-r']}>
-    {
-      cover ? (
-        <Image src={image} widths={[480, 720, 960]} sizes="(min-width: 768px) 30rem, 100vw" alt={`${name} preview`} class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
-      ) : (
-        <Image src={image} height={144} densities={[1, 2]} alt={`${name} preview`} class="absolute inset-0 m-auto h-auto max-h-[62%] w-auto max-w-[70%] rounded-lg transition-transform duration-500 group-hover:scale-105" />
-      )
-    }
+    {fit === 'phone' && <Image src={image} width={216} densities={[1, 2]} alt={alt} class:list={['absolute inset-x-0 top-[12%] mx-auto h-auto w-[44%] max-w-[13.5rem] rounded-t-2xl border border-line shadow-xl shadow-black/20', zoom]} />}
+    {(fit === 'cover' || fit === 'top') && <Image src={image} widths={[480, 720, 960]} sizes="(min-width: 768px) 30rem, 100vw" alt={alt} class:list={['absolute inset-0 h-full w-full object-cover', fit === 'top' && 'object-top', zoom]} />}
+    {!fit && <Image src={image} height={144} densities={[1, 2]} alt={alt} class:list={['absolute inset-0 m-auto h-auto max-h-[62%] w-auto max-w-[70%] rounded-lg', zoom]} />}
     <span class="absolute left-3 top-3 rounded-md border border-line bg-bg/80 px-2 py-0.5 font-mono text-[11px] text-muted backdrop-blur">{String(index).padStart(2, '0')}</span>
   </div>
 
