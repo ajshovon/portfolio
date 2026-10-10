@@ -1,4 +1,5 @@
 // @ts-check
+import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, envField, fontProviders } from 'astro/config';
 
 // Read while building, so the analytics settings are baked into the generated HTML.
@@ -8,11 +9,12 @@ export default defineConfig({
   site: 'https://shovon.me',
   build: { format: 'file' },
   server: { port: 7000 },
+  vite: { plugins: [tailwindcss()] },
   fonts: [
     {
       provider: fontProviders.google(),
       name: 'Red Hat Display',
-      cssVariable: '--font-display',
+      cssVariable: '--font-red-hat-display',
       weights: ['300 900'],
       styles: ['normal'],
       subsets: ['latin'],
@@ -20,7 +22,7 @@ export default defineConfig({
     {
       provider: fontProviders.google(),
       name: 'Red Hat Text',
-      cssVariable: '--font-text',
+      cssVariable: '--font-red-hat-text',
       weights: ['300 700'],
       styles: ['normal'],
       subsets: ['latin'],
@@ -28,7 +30,7 @@ export default defineConfig({
     {
       provider: fontProviders.google(),
       name: 'Red Hat Mono',
-      cssVariable: '--font-mono',
+      cssVariable: '--font-red-hat-mono',
       weights: ['300 700'],
       styles: ['normal'],
       subsets: ['latin'],
