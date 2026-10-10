@@ -1,0 +1,42 @@
+name: Deploy Portfolio - Native
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-portfolio
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Pull, build and publish on VPS
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_KEY }}
+          port: ${{ secrets.VPS_SSH_PORT }}
+          command_timeout: 10m
+          script: |
+            set -euo pipefail
+
+            SRC="$HOME/src/portfolio"
+            WEBROOT="$HOME/htdocs/shovon.me"
+
+            cd "$SRC"
+            git fetch --prune origin
+            git reset --hard origin/astro
+
+            npm ci --no-audit --no-fund
+            npm run build
+
+            # Don't wipe the live site if the build came out empty
+            test -f dist/index.html || { echo "Build output missing index.html"; exit 1; }
+
+            rsync -a --delete --exclude='.well-known' dist/ "$WEBROOT/"
+
+            echo "Deployed $(git rev-parse --short HEAD) to $WEBROOT"
