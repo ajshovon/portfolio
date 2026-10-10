@@ -23,7 +23,7 @@ const zoom = 'transition-transform duration-500 group-hover:scale-[1.03]';
     {fit === 'phone' && <Image src={image} width={216} densities={[1, 2]} alt={alt} class:list={['absolute inset-x-0 top-[12%] mx-auto h-auto w-[44%] max-w-[13.5rem] rounded-t-2xl border border-line shadow-xl shadow-black/20', zoom]} />}
     {(fit === 'cover' || fit === 'top') && <Image src={image} widths={[480, 720, 960]} sizes="(min-width: 768px) 30rem, 100vw" alt={alt} class:list={['absolute inset-0 h-full w-full object-cover', fit === 'top' && 'object-top', zoom]} />}
     {!fit && <Image src={image} height={144} densities={[1, 2]} alt={alt} class:list={['absolute inset-0 m-auto h-auto max-h-[62%] w-auto max-w-[70%] rounded-lg', zoom]} />}
-    <span class="absolute left-3 top-3 rounded-md border border-line bg-bg/80 px-2 py-0.5 font-mono text-[11px] text-muted backdrop-blur">{String(index).padStart(2, '0')}</span>
+    <span class="absolute left-3 top-3 rounded-md border border-line bg-bg/80 px-2 py-0.5 font-mono text-[11px] text-muted backdrop-blur-sm">{String(index).padStart(2, '0')}</span>
   </div>
 
   <div class:list={['flex flex-1 flex-col gap-3 p-5', wide && 'md:justify-center md:p-8']}>
