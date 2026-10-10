@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Personal portfolio for [shovon.me](https://shovon.me), built with [Astro](https://astro.build/) and Tailwind CSS.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:7000](http://localhost:7000) with your browser to see the result. If the port is taken, Astro picks the next free one and prints it.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Pages live in `src/pages`, shared markup in `src/layouts` and `src/components`, and icons in `src/icons` as plain SVG files that are imported as components.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Scripts
 
-## Learn More
+| Command         | What it does                                      |
+| --------------- | ------------------------------------------------- |
+| `npm run dev`   | Start the dev server                              |
+| `npm run build` | Build the static site into `dist/`                |
+| `npm start`     | Preview the built site locally                    |
+| `npm run check` | Type-check the project with `astro check`         |
+| `npm run knip`  | Find unused files, dependencies and exports       |
 
-To learn more about Next.js, take a look at the following resources:
+## Environment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Analytics are configured through environment variables that are read while building and baked into the generated HTML, so changing them means rebuilding. Copy `.env.example` to `.env` for local development.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+| Variable                                               | Purpose                         |
+| ------------------------------------------------------ | ------------------------------- |
+| `UMAMI_ENABLED`, `UMAMI_URL`, `UMAMI_SITE_ID`          | Umami script URL and website id |
+| `CLARITY_ENABLED`, `CLARITY_PROJECT_ID`                | Microsoft Clarity               |
+| `GOOGLE_TAG_MANAGER_ENABLED`, `GOOGLE_TAG_MANAGER_ID`  | Google tag (gtag.js) id         |
 
-## Deploy on Vercel
+Each integration is only injected when its `*_ENABLED` variable is exactly `true`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The build output is plain static files, so any static host works. `Dockerfile` builds the site and serves it with nginx (config in `nginx/default.conf.template`), listening on `$PORT` (default 7000). The analytics variables are passed as build arguments:
+
+```bash
+docker build -t portfolio:latest --build-arg UMAMI_ENABLED=true --build-arg UMAMI_URL=... --build-arg UMAMI_SITE_ID=... .
+docker run --rm -p 7000:7000 portfolio:latest
+```
+
+`.github/workflows/deploy.yml` builds that image with the analytics values taken from the repository's Actions variables of the same names, then ships it to the VPS.
