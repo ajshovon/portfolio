@@ -34,6 +34,8 @@ const ogImage = new URL('/assets/images/og-image.png', Astro.site);
       (() => {
         const root = document.documentElement;
         const media = window.matchMedia('(prefers-color-scheme: dark)');
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let motion = !reducedMotion.matches;
         let theme = null;
         try {
           theme = localStorage.getItem('theme');
@@ -44,9 +46,16 @@ const ogImage = new URL('/assets/images/og-image.png', Astro.site);
           root.classList.remove('light', 'dark');
           root.classList.add(resolved);
           root.style.colorScheme = resolved;
+          root.classList.toggle('motion', motion);
         };
 
         apply();
+        // Animated elements start hidden, so show them anyway if the animation script never starts
+        setTimeout(() => {
+          if (window.motionReady) return;
+          motion = false;
+          apply();
+        }, 4000);
         media.addEventListener('change', apply);
         document.addEventListener('astro:after-swap', apply);
         window.addEventListener('storage', (event) => {
@@ -74,5 +83,8 @@ const ogImage = new URL('/assets/images/og-image.png', Astro.site);
       <slot />
     </main>
     <Footer />
+    <script>
+      import '@/scripts/motion';
+    </script>
   </body>
 </html>

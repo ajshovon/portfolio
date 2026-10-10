@@ -6,13 +6,13 @@ import Layout from '@/layouts/Layout.astro';
 
 <Layout title="Projects :: [.shovon]">
   <section class="py-14 md:py-20">
-    <p class="eyebrow motion-safe:animate-rise">// projects</p>
-    <div class="mt-3 flex items-end justify-between gap-4 motion-safe:animate-rise" style="animation-delay: 60ms">
-      <h1 class="font-display text-5xl font-black tracking-tight md:text-6xl">Projects</h1>
-      <p class="pb-1.5 font-mono text-sm text-muted">{projects.length} total</p>
+    <p class="eyebrow" data-intro>// projects</p>
+    <div class="mt-3 flex items-end justify-between gap-4">
+      <h1 class="font-display text-5xl font-black tracking-tight md:text-6xl" data-intro="title">Projects</h1>
+      <p class="pb-1.5 font-mono text-sm text-muted" data-intro>{projects.length} total</p>
     </div>
 
-    <div class="mt-10 grid gap-6 motion-safe:animate-rise md:grid-cols-2" style="animation-delay: 120ms">
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
       {projects.map((project, i) => <ProjectCard project={project} index={i + 1} wide={i === 0} />)}
     </div>
   </section>

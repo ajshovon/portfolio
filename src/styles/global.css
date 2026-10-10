@@ -69,6 +69,11 @@
     outline-offset: 3px;
     border-radius: 4px;
   }
+
+  /* Animated elements wait hidden for GSAP (src/scripts/motion.ts). The class is only set while motion is allowed and the script is expected to run. */
+  html.motion :is([data-intro], [data-scroll], [data-terminal] [data-line]) {
+    visibility: hidden;
+  }
 }
 
 @layer components {
@@ -96,4 +101,15 @@
   .caret {
     @apply inline-block h-[1.1em] w-[0.55em] translate-y-[0.18em] bg-accent motion-safe:animate-blink;
   }
+}
+
+/* Classes added by GSAP's SplitText at runtime. Kept outside the Tailwind layers so they are not purged. */
+
+/* Leave room for descenders inside the line masks of split titles */
+.split-line {
+  padding-bottom: 0.14em;
+}
+
+.split-line-mask {
+  margin-bottom: -0.14em;
 }

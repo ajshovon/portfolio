@@ -15,7 +15,7 @@ const featured = projects.slice(0, 3);
 <Layout>
   <section class="grid items-center gap-12 py-14 md:py-24 lg:grid-cols-[minmax(0,1fr)_25rem]">
     <div>
-      <div class="flex items-center gap-4 motion-safe:animate-rise">
+      <div class="flex items-center gap-4" data-intro>
         <Image src={avatar} alt="avatar" width={64} height={64} densities={[1, 2]} priority class="size-16 rounded-2xl border border-line" />
         <div class="font-mono text-sm">
           <p class="flex items-center gap-2"><span class="size-2 rounded-full bg-ok" aria-hidden="true"></span> DevOps Engineer</p>
@@ -23,13 +23,13 @@ const featured = projects.slice(0, 3);
         </div>
       </div>
 
-      <h1 class="mt-8 font-display text-[clamp(2.75rem,8vw,5rem)] font-black leading-[0.95] tracking-tight motion-safe:animate-rise" style="animation-delay: 80ms">
+      <h1 class="mt-8 font-display text-[clamp(2.75rem,8vw,5rem)] font-black leading-[0.95] tracking-tight" data-intro="title">
         Jubayer Ahmad <span class="text-accent">Shovon</span>
       </h1>
 
-      <p class="mt-6 max-w-xl text-lg leading-relaxed text-muted motion-safe:animate-rise" style="animation-delay: 160ms">Tech lover, otaku, geeky! I work with web technologies and love to build things that make a difference.</p>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-muted" data-intro>Tech lover, otaku, geeky! I work with web technologies and love to build things that make a difference.</p>
 
-      <ul class="mt-8 flex flex-wrap gap-3 motion-safe:animate-rise" style="animation-delay: 240ms">
+      <ul class="mt-8 flex flex-wrap gap-3" data-intro>
         {
           socials.map(({ label, href, icon: Icon }) => (
             <li>
@@ -42,31 +42,33 @@ const featured = projects.slice(0, 3);
       </ul>
     </div>
 
-    <div class="motion-safe:animate-rise" style="animation-delay: 320ms">
+    <div data-intro>
       <Window title="shovon@web: ~">
-        <p><span class="text-accent">$</span> whoami</p>
-        <p class="text-muted">jubayer ahmad shovon</p>
-        <p class="mt-3"><span class="text-accent">$</span> cat role.txt</p>
-        <p class="text-muted">devops engineer, dhaka (bd)</p>
-        <p class="mt-3"><span class="text-accent">$</span> cat interests.txt</p>
-        <p class="text-muted">tech, anime, all things geeky</p>
-        <p class="mt-3"><span class="text-accent">$</span> ls ~/projects</p>
-        <p class="flex flex-wrap gap-x-4">
-          {
-            projects.map(({ slug }) => (
-              <a href={`/projects#${slug}`} class="text-info hover:underline">
-                {slug}/
-              </a>
-            ))
-          }
-        </p>
-        <p class="mt-3"><span class="text-accent">$</span> <span class="caret" aria-hidden="true"></span></p>
+        <div data-terminal>
+          <p data-line><span class="text-accent">$</span> <span data-type>whoami</span></p>
+          <p class="text-muted" data-line>jubayer ahmad shovon</p>
+          <p class="mt-3" data-line><span class="text-accent">$</span> <span data-type>cat role.txt</span></p>
+          <p class="text-muted" data-line>devops engineer, dhaka (bd)</p>
+          <p class="mt-3" data-line><span class="text-accent">$</span> <span data-type>cat interests.txt</span></p>
+          <p class="text-muted" data-line>tech, anime, all things geeky</p>
+          <p class="mt-3" data-line><span class="text-accent">$</span> <span data-type>ls ~/projects</span></p>
+          <p class="flex flex-wrap gap-x-4" data-line>
+            {
+              projects.map(({ slug }) => (
+                <a href={`/projects#${slug}`} class="text-info hover:underline">
+                  {slug}/
+                </a>
+              ))
+            }
+          </p>
+          <p class="mt-3" data-line><span class="text-accent">$</span> <span class="caret" aria-hidden="true"></span></p>
+        </div>
       </Window>
     </div>
   </section>
 
   <section class="pb-20">
-    <div class="flex items-end justify-between gap-4 border-b border-line pb-4">
+    <div class="flex items-end justify-between gap-4 border-b border-line pb-4" data-scroll>
       <div>
         <p class="eyebrow">// selected work</p>
         <h2 class="mt-2 font-display text-3xl font-extrabold tracking-tight">Projects</h2>

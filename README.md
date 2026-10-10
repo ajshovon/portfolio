@@ -9,7 +9,7 @@ npm run dev
 
 Open [http://localhost:7000](http://localhost:7000) with your browser to see the result. If the port is taken, Astro picks the next free one and prints it.
 
-Pages live in `src/pages`, shared markup in `src/layouts` and `src/components`, and icons in `src/icons` as plain SVG files that are imported as components. Projects and social links are listed in `src/data`. Colors for both themes are CSS variables in `src/styles/global.css`.
+Pages live in `src/pages`, shared markup in `src/layouts` and `src/components`, and icons in `src/icons` as plain SVG files that are imported as components. Projects and social links are listed in `src/data`. Colors for both themes are CSS variables in `src/styles/global.css`. Smooth scrolling (Lenis) and animations (GSAP) live in `src/scripts/motion.ts` and are driven by `data-intro`, `data-scroll` and `data-terminal` attributes in the markup; they are skipped when the visitor prefers reduced motion.
 
 ## Scripts
 

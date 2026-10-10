@@ -6,19 +6,22 @@ import Layout from '@/layouts/Layout.astro';
 
 <Layout title="404 :: [.shovon]">
   <section class="mx-auto flex max-w-xl flex-col py-16 md:py-24">
-    <p class="eyebrow motion-safe:animate-rise">// error</p>
-    <h1 class="mt-3 font-display text-[clamp(5rem,22vw,9rem)] font-black leading-none tracking-tighter text-accent motion-safe:animate-rise" style="animation-delay: 60ms">404</h1>
-    <p class="mt-2 text-lg text-muted motion-safe:animate-rise" style="animation-delay: 120ms">Oops, page not found…</p>
+    <p class="eyebrow" data-intro>// error</p>
+    <h1 class="mt-3 font-display text-[clamp(5rem,22vw,9rem)] font-black leading-none tracking-tighter text-accent" data-intro="title">404</h1>
+    <p class="mt-2 text-lg text-muted" data-intro>Oops, page not found…</p>
 
-    <div class="mt-8 motion-safe:animate-rise" style="animation-delay: 180ms">
+    <div class="mt-8" data-intro>
       <Window title="shovon@web: ~">
-        <p class="break-all"><span class="text-accent">$</span> cd <span data-requested-path>/this/page</span></p>
-        <p class="text-danger">cd: no such file or directory</p>
-        <p class="mt-3"><span class="text-accent">$</span> cd ~ <span class="caret" aria-hidden="true"></span></p>
+        <div data-terminal>
+          <p class="break-all" data-line><span class="text-accent">$</span> <span data-type>cd <span data-requested-path>/this/page</span></span></p>
+          <p class="text-danger" data-line>cd: no such file or directory</p>
+          <p class="mt-3" data-line><span class="text-accent">$</span> <span data-type>cd ~</span></p>
+          <p data-line><span class="text-accent">$</span> <span class="caret" aria-hidden="true"></span></p>
+        </div>
       </Window>
     </div>
 
-    <a href="/" class="btn btn-primary mt-8 self-start motion-safe:animate-rise" style="animation-delay: 240ms">
+    <a href="/" class="btn btn-primary mt-8 self-start" data-intro>
       <ArrowLeft /> Home
     </a>
   </section>

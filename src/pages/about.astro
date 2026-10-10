@@ -25,13 +25,13 @@ const manifest: [number, string, string?][] = [
 
 <Layout title="About :: [.shovon]">
   <section class="py-14 md:py-20">
-    <p class="eyebrow motion-safe:animate-rise">// about</p>
-    <h1 class="mt-3 font-display text-5xl font-black tracking-tight motion-safe:animate-rise md:text-6xl" style="animation-delay: 60ms">About</h1>
+    <p class="eyebrow" data-intro>// about</p>
+    <h1 class="mt-3 font-display text-5xl font-black tracking-tight md:text-6xl" data-intro="title">About</h1>
 
     <div class="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_23rem] lg:gap-14">
-      <div class="motion-safe:animate-rise" style="animation-delay: 120ms">
-        <p class="font-display text-2xl font-bold tracking-tight">Hello there,</p>
-        <p class="mt-4 text-lg leading-relaxed text-muted">
+      <div>
+        <p class="font-display text-2xl font-bold tracking-tight" data-intro>Hello there,</p>
+        <p class="mt-4 text-lg leading-relaxed text-muted" data-intro>
           Myself <strong class="font-semibold text-fg">Jubayer Ahmad Shovon.</strong>
           <br />
           I work with web technologies and love to build things that make a difference.
@@ -39,7 +39,7 @@ const manifest: [number, string, string?][] = [
           Exploring interesting techs and learning along the way having some fun!
         </p>
 
-        <ul class="mt-8 flex flex-wrap gap-3">
+        <ul class="mt-8 flex flex-wrap gap-3" data-intro>
           {
             socials.map(({ label, href, icon: Icon }) => (
               <li>
@@ -51,17 +51,19 @@ const manifest: [number, string, string?][] = [
           }
         </ul>
 
-        <Window title="welcome.gif" flush class="mt-10 max-w-[30rem]">
-          <img src={welcome.src} width={welcome.width} height={welcome.height} alt="Welcome" loading="lazy" decoding="async" class="w-full" />
-        </Window>
+        <div class="mt-10 max-w-[30rem]" data-scroll>
+          <Window title="welcome.gif" flush>
+            <img src={welcome.src} width={welcome.width} height={welcome.height} alt="Welcome" loading="lazy" decoding="async" class="w-full" />
+          </Window>
+        </div>
       </div>
 
-      <div class="motion-safe:animate-rise" style="animation-delay: 200ms">
+      <div data-intro>
         <Window title="whoami.yaml">
-          <ol>
+          <ol data-terminal>
             {
               manifest.map(([indent, key, value], i) => (
-                <li class="flex gap-4">
+                <li class="flex gap-4" data-line>
                   <span class="w-5 shrink-0 select-none text-right text-faint" aria-hidden="true">
                     {i + 1}
                   </span>

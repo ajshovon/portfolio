@@ -18,7 +18,7 @@ const alt = `${name} preview`;
 const zoom = 'transition-transform duration-500 group-hover:scale-[1.03]';
 ---
 
-<article id={slug} class:list={['group flex flex-col overflow-hidden rounded-xl border border-line bg-surface transition-colors duration-300 hover:border-accent/70', wide && 'md:col-span-2 md:flex-row']}>
+<article id={slug} data-scroll class:list={['group flex flex-col overflow-hidden rounded-xl border border-line bg-surface transition-colors duration-300 hover:border-accent/70', wide && 'md:col-span-2 md:flex-row']}>
   <div class:list={['relative aspect-[2/1] shrink-0 overflow-hidden border-b border-line bg-raised', wide && 'md:aspect-auto md:min-h-64 md:w-[44%] md:border-b-0 md:border-r']}>
     {fit === 'phone' && <Image src={image} width={216} densities={[1, 2]} alt={alt} class:list={['absolute inset-x-0 top-[12%] mx-auto h-auto w-[44%] max-w-[13.5rem] rounded-t-2xl border border-line shadow-xl shadow-black/20', zoom]} />}
     {(fit === 'cover' || fit === 'top') && <Image src={image} widths={[480, 720, 960]} sizes="(min-width: 768px) 30rem, 100vw" alt={alt} class:list={['absolute inset-0 h-full w-full object-cover', fit === 'top' && 'object-top', zoom]} />}

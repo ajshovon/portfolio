@@ -29,18 +29,11 @@ const config: Config = {
       },
       animation: {
         blink: "blink 1.1s steps(1) infinite",
-        rise: "rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both",
       },
       keyframes: {
         blink: {
           "50%": {
             opacity: "0",
-          },
-        },
-        rise: {
-          from: {
-            opacity: "0",
-            transform: "translateY(12px)",
           },
         },
       },
