@@ -2,9 +2,13 @@
 import ProjectCard from '@/components/ui/ProjectCard.astro';
 import { projects } from '@/data/projects';
 import Layout from '@/layouts/Layout.astro';
+
+// Names for the description, without emoji
+const names = projects.slice(0, 3).map(({ name }) => name.replace(/\p{Extended_Pictographic}/gu, '').trim());
+const description = `Projects by Jubayer Ahmad Shovon, including ${names.join(', ')} and ${projects.length - names.length} more.`;
 ---
 
-<Layout title="Projects :: [.shovon]">
+<Layout title="Projects :: [.shovon]" description={description}>
   <section class="py-14 md:py-20">
     <p class="eyebrow motion-safe:animate-rise">// projects</p>
     <div class="mt-3 flex items-end justify-between gap-4 motion-safe:animate-rise" style="animation-delay: 60ms">
