@@ -15,7 +15,24 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build Docker image
-        run: docker build -t portfolio:latest .
+        env:
+          GOOGLE_TAG_MANAGER_ENABLED: ${{ vars.GOOGLE_TAG_MANAGER_ENABLED }}
+          GOOGLE_TAG_MANAGER_ID: ${{ vars.GOOGLE_TAG_MANAGER_ID }}
+          UMAMI_ENABLED: ${{ vars.UMAMI_ENABLED }}
+          UMAMI_URL: ${{ vars.UMAMI_URL }}
+          UMAMI_SITE_ID: ${{ vars.UMAMI_SITE_ID }}
+          CLARITY_ENABLED: ${{ vars.CLARITY_ENABLED }}
+          CLARITY_PROJECT_ID: ${{ vars.CLARITY_PROJECT_ID }}
+        run: |
+              docker build -t portfolio:latest \
+                --build-arg GOOGLE_TAG_MANAGER_ENABLED \
+                --build-arg GOOGLE_TAG_MANAGER_ID \
+                --build-arg UMAMI_ENABLED \
+                --build-arg UMAMI_URL \
+                --build-arg UMAMI_SITE_ID \
+                --build-arg CLARITY_ENABLED \
+                --build-arg CLARITY_PROJECT_ID \
+                .
 
       - name: Save and compress Docker image
         run: docker save portfolio:latest | zstd -o portfolio.tar.zst

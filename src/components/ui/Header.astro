@@ -1,0 +1,17 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+---
+
+<div class="dark:bg-[#1b1c1d] bg-[#fafafa] sticky top-0">
+  <div class="h-[68px] max-w-3xl lg:mx-auto lg:px-6 mx-6 flex items-center justify-between">
+    <a href="/" class="font-mono dark:text-[#a9a9b3] text-[#222222] text-lg font-bold">
+      &gt; $<span class="relative w-[max-content] before:absolute before:inset-0 before:animate-typewriter before:dark:bg-[#1b1c1d] before:bg-[#fafafa] after:absolute after:inset-0 after:w-2 after:animate-caret after:bg-sky-500">cd /home/</span>
+    </a>
+
+    <div class="flex items-center gap-6">
+      <a href="/about" class="dark:text-[#a9a9b3] text-[#222222] hover:underline transition-all duration-300">About</a>
+      <a href="/projects" class="dark:text-[#a9a9b3] text-[#222222] hover:underline transition-all duration-300">Projects</a>
+      <ThemeToggle />
+    </div>
+  </div>
+</div>

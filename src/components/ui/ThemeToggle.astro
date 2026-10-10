@@ -1,0 +1,11 @@
+---
+import Moon from '@/icons/moon.svg';
+import SunMoon from '@/icons/sun-moon.svg';
+import Sun from '@/icons/sun.svg';
+---
+
+<button type="button" class="cursor-pointer" aria-label="Toggle theme" data-theme-toggle>
+  <SunMoon class="[.light_&]:hidden dark:hidden" />
+  <Sun class="hidden dark:block" />
+  <Moon class="hidden [.light_&]:block" />
+</button>

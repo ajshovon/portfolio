@@ -1,0 +1,90 @@
+---
+import Analytics from '@/components/Analytics.astro';
+import Footer from '@/components/ui/Footer.astro';
+import Header from '@/components/ui/Header.astro';
+import '@/styles/global.css';
+import { Font } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = '[.shovon]', description = 'Personal Portfolio || [.shovon]' } = Astro.props;
+const ogImage = new URL('/assets/images/og-image.png', Astro.site);
+---
+
+<!doctype html>
+<html lang="en" transition:animate="none">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="icon" href="/favicon.ico" />
+    <Font cssVariable="--font-inter" preload />
+    <ClientRouter />
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const media = window.matchMedia('(prefers-color-scheme: dark)');
+        let theme = null;
+        try {
+          theme = localStorage.getItem('theme');
+        } catch {}
+
+        const apply = () => {
+          const resolved = theme === 'light' || theme === 'dark' ? theme : media.matches ? 'dark' : 'light';
+          root.classList.remove('light', 'dark');
+          root.classList.add(resolved);
+          root.style.colorScheme = resolved;
+        };
+
+        apply();
+        media.addEventListener('change', apply);
+        document.addEventListener('astro:after-swap', apply);
+        window.addEventListener('storage', (event) => {
+          if (event.key !== 'theme') return;
+          theme = event.newValue;
+          apply();
+        });
+        document.addEventListener('click', (event) => {
+          if (!event.target.closest('[data-theme-toggle]')) return;
+          theme = root.classList.contains('dark') ? 'light' : 'dark';
+          try {
+            localStorage.setItem('theme', theme);
+          } catch {}
+          apply();
+        });
+      })();
+    </script>
+    <Analytics />
+  </head>
+  <body class="font-inter dark:bg-[#232425] bg-white flex min-h-svh flex-col">
+    <Header />
+    <main class="flex flex-col flex-auto items-center justify-center m-0">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import { swapFunctions } from 'astro:transitions/client';
+
+      // Swap only <main> between pages so the header's typewriter animation doesn't replay on every navigation.
+      document.addEventListener('astro:before-swap', (event) => {
+        const main = document.querySelector('main');
+        const newMain = event.newDocument.querySelector('main');
+        if (!main || !newMain) return;
+
+        event.swap = () => {
+          swapFunctions.deselectScripts(event.newDocument);
+          swapFunctions.swapHeadElements(event.newDocument);
+          main.replaceWith(newMain);
+        };
+      });
+    </script>
+  </body>
+</html>

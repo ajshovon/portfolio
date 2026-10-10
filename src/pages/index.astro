@@ -1,0 +1,35 @@
+---
+import avatar from '@/assets/images/61104583.jpg';
+import Envelope from '@/icons/envelope.svg';
+import Github from '@/icons/github.svg';
+import Linkedin from '@/icons/linkedin.svg';
+import Telegram from '@/icons/telegram.svg';
+import Layout from '@/layouts/Layout.astro';
+import { Image } from 'astro:assets';
+---
+
+<Layout>
+  <div class="h-full w-full flex flex-col gap-8 justify-center items-center dark:text-[#a9a9b3] text-[#222222]">
+    <Image src={avatar} alt="avatar" width={160} height={160} densities={[1, 2]} priority class="rounded-full ring-8 ring-opacity-30 ring-gray-400" />
+
+    <h1 class="font-bold md:text-[42px] text-[32px] text-center">Jubayer Ahmad Shovon</h1>
+    <div class="text-center">
+      <p>Tech lover, otaku, geeky!</p>
+      <p>Dhaka, Bangladesh</p>
+      <div class="flex items-center justify-center gap-4 text-2xl mt-4">
+        <a href="https://redirect.shovon.me/github" target="_blank" title="GitHub" rel="noopener">
+          <Github />
+        </a>
+        <a href="https://redirect.shovon.me/linkedin" target="_blank" title="LinkedIn" rel="noopener">
+          <Linkedin />
+        </a>
+        <a href="https://redirect.shovon.me/telegram" target="_blank" title="Telegram" rel="noopener">
+          <Telegram />
+        </a>
+        <a href="mailto:mail@shovon.me" target="_blank" title="Email" rel="noopener">
+          <Envelope />
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

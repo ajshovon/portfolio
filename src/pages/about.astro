@@ -1,0 +1,25 @@
+---
+import welcome from '@/assets/images/welcome.gif';
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout title="About :: [.shovon]">
+  <div class="dark:text-[#a9a9b3] text-[#222222] h-full w-full flex justify-center items-center">
+    <div class="max-w-3xl lg:mx-auto lg:px-6 mx-6">
+      <div>
+        <h1 class="font-bold md:text-[42px] text-[32px]">About</h1>
+        <div class="flex justify-center my-5">
+          <img src={welcome.src} width={500} height={Math.round((500 * welcome.height) / welcome.width)} alt="Welcome" loading="lazy" decoding="async" class="rounded-md" />
+        </div>
+        <p class="mb-2">Hello there,</p>
+        <p>
+          Myself <strong>Jubayer Ahmad Shovon.</strong>
+          <br />
+          I work with web technologies and love to build things that make a difference.
+          <br />
+          Exploring interesting techs and learning along the way having some fun!
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout>

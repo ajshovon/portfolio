@@ -9,12 +9,11 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
+# astro
+/.astro/
 
 # production
-/build
+/dist
 
 # misc
 .DS_Store
@@ -35,7 +34,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
 
 .secrets

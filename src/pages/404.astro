@@ -1,0 +1,19 @@
+---
+import Home from '@/icons/home.svg';
+import Robot from '@/icons/robot.svg';
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout title="404 :: [.shovon]">
+  <div class="h-full w-full flex flex-col gap-8 justify-center items-center dark:text-[#a9a9b3] text-[#222222]">
+    <Robot class="text-3xl" />
+    <h1 class="font-bold md:text-5xl text-4xl">404</h1>
+    <div class="text-center">
+      <p>Oops, page not found…</p>
+      <a href="/" class="flex items-center gap-1 justify-center mt-4">
+        <Home class="text-xl" />
+        <span class="hover:underline">Home</span>
+      </a>
+    </div>
+  </div>
+</Layout>

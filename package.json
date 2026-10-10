@@ -1,30 +1,20 @@
 {
-  "name": "shovon.me-nextjs",
+  "name": "shovon.me-astro",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack -p 7000",
-    "build": "next build",
-    "start": "next start -p 7000",
-    "lint": "next lint",
+    "dev": "astro dev",
+    "build": "astro build",
+    "start": "astro preview",
+    "check": "astro check",
     "knip": "knip"
   },
-  "dependencies": {
-    "@next/third-parties": "^16.2.6",
-    "next": "^16.2.6",
-    "next-themes": "^0.4.6",
-    "react": "^19",
-    "react-dom": "^19",
-    "react-icons": "^5.6.0",
-    "sharp": "^0.34.5"
-  },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
     "@types/node": "^25.7.0",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "astro": "^7.3.8",
     "autoprefixer": "^10.5.0",
-    "eslint": "^9",
-    "eslint-config-next": "16.2.6",
     "knip": "^6.13.1",
     "postcss": "^8",
     "tailwindcss": "^3.4.19",

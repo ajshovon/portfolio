@@ -1,50 +1,44 @@
 ###################
-# BASE
+# BUILD STAGE
 ###################
-FROM node:lts-alpine3.21 AS base
+FROM node:lts-alpine3.21 AS build
 
 # Create app directory
 WORKDIR /app
 
-###################
-# BUILD STAGE
-###################
-FROM base AS build
+ENV ASTRO_TELEMETRY_DISABLED=1
 
 # Copy package files
-COPY --chown=node:node package.json package-lock.json ./
-
-ENV NEXT_TELEMETRY_DISABLED=1
+COPY package.json package-lock.json ./
 
 # Install all dependencies
 RUN npm ci
 
 # Copy the application source code
-COPY --chown=node:node . .
+COPY . .
 
-# Build the application
+# Analytics settings are baked into the pages while building
+ARG GOOGLE_TAG_MANAGER_ENABLED
+ARG GOOGLE_TAG_MANAGER_ID
+ARG UMAMI_ENABLED
+ARG UMAMI_URL
+ARG UMAMI_SITE_ID
+ARG CLARITY_ENABLED
+ARG CLARITY_PROJECT_ID
+
+# Build the static site
 RUN npm run build
 
 ###################
 # PRODUCTION STAGE
 ###################
-FROM base AS prod
+# Runs nginx as a non-root user for security
+FROM nginxinc/nginx-unprivileged:stable-alpine AS prod
 
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=7000
 
-# Copy only necessary files for production
-COPY --from=build /app/public ./public
+# Rendered into /etc/nginx/conf.d on startup with $PORT filled in
+COPY nginx/default.conf.template /etc/nginx/templates/default.conf.template
 
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=build --chown=node:node /app/.next/standalone ./
-COPY --from=build --chown=node:node /app/.next/static ./.next/static
-
-# Use a non-root user for security
-USER node
-
-ENV HOSTNAME="0.0.0.0"
-
-# Start the application
-CMD ["node", "server.js"]
+# Copy the built site
+COPY --from=build /app/dist /usr/share/nginx/html

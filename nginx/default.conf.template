@@ -1,0 +1,28 @@
+server {
+    listen ${PORT};
+    server_name _;
+
+    root /usr/share/nginx/html;
+    index index.html;
+    absolute_redirect off;
+
+    gzip on;
+    gzip_types text/css application/javascript application/json image/svg+xml;
+
+    error_page 404 /404.html;
+
+    # /about/ -> /about
+    rewrite ^/(.+)/$ /$1 permanent;
+
+    # Pages are built as /about.html but linked as /about
+    location / {
+        add_header Cache-Control "no-cache";
+        try_files $uri $uri.html $uri/ =404;
+    }
+
+    # Fingerprinted build output, safe to cache forever
+    location /_astro/ {
+        add_header Cache-Control "public, max-age=31536000, immutable";
+        try_files $uri =404;
+    }
+}
